@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool lemonadeChange(int* bills, int billsSize) {
+    int NotaCinco = 0;
+    int NotaDez = 0;
+
+    for (int i = 0; i < billsSize; ++i) {
+        if (bills[i] == 5) {
+            NotaCinco++;
+        } else if (bills[i] == 10) {
+            if (NotaCinco == 0) {
+                return false;
+            }
+            NotaCinco--;
+            NotaDez++;
+          
+        } else { 
+            if (NotaDez > 0 && NotaCinco > 0) {
+                NotaDez--;
+                NotaCinco--;
+              
+            } else if (NotaCinco >= 3) {
+                NotaCinco -= 3;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    
+    int c;
+    printf("Digite o número de clientes: ");
+    scanf("%d", &c);
+
+    int bills[c];
+    printf("Valores de cada nota recebida:\n");
+  
+    for (int i = 0; i < c; ++i) {
+        scanf("%d", &bills[i]);
+    }
+
+    if (lemonadeChange(bills, c)) {
+        printf("True.\n");
+    } else {
+        printf("False.\n");
+    }
+
+    return 0;
+}
